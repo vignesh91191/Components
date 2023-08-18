@@ -1,0 +1,24 @@
+<div class="custom-dropdown">
+    <div class="dropdown-toggle" (click)="toggleDropdown()">
+        {{ selectedValue || placeholder }}
+        <span class="arrow">&#9662;</span>
+        <!-- <span class="clear-icon" *ngIf="selectedValue" (click)="clearSelection()">X</span> -->
+    </div>
+    <div *ngIf="showDropdown" class="dropdown-list">
+        <input type="text" [(ngModel)]="searchText" (input)="onSearch()" class="search-input" placeholder="Search...">
+        <div *ngIf="loading" class="loading-spinner">
+            <span class="spinner">&#9209;</span>
+        </div>
+        <ul>
+            <li *ngFor="let item of paginatedItems" (click)="onItemSelected(item)">
+                {{ item.value }}
+            </li>
+
+        </ul>
+        <div class="pagination">
+            <button (click)="goToPrevPage()" [disabled]="currentPage === 1">Prev</button>
+            <span>{{ currentPage }} / {{ totalPages }}</span>
+            <button (click)="goToNextPage()" [disabled]="currentPage === totalPages">Next</button>
+        </div>
+    </div>
+</div>
